@@ -1,0 +1,191 @@
+{
+    "pluginName": {
+        "message": "asterCC CTI Plugin"
+    },
+    "pluginDescription": {
+        "message": "asterCC call center CTI plugin.",
+        "description": "Plugin description."
+    },
+    "AgentGroup": {
+        "message": "Agent Group"
+    },
+    "Login": {
+        "message": "Login"
+    },
+    "Logout": {
+        "message": "Logout"
+    },
+    "Pause": {
+        "message": "Pause"
+    },
+    "UnPause": {
+        "message": "UnPause"
+    },    
+    "ACW": {
+        "message": "ACW"
+    },
+    "Dial": {
+        "message": "Dial"
+    },    
+    "Hold": {
+        "message": "Hold"
+    },
+    "Resume": {
+        "message": "Resume"
+    },
+    "Consult": {
+        "message": "Consult"
+    },    
+    "CB": {
+        "message": "CB"
+    },    
+    "Conference": {
+        "message": "Conf."
+    },
+    "Transfer": {
+        "message": "Trans."
+    },
+    "SignOut": {
+        "message": "Sign Out"
+    },    
+    "Username": {
+        "message": "Username"
+    },
+    "Password": {
+        "message": "Password"
+    },
+    "ServerURL": {
+        "message": "ServerURL"
+    },    
+    "SignIn": {
+        "message": "Sign In"
+    },
+    "GroupName": {
+        "message": "Group Name"
+    }, 
+    "acwMode": {
+        "message": "ACW Mode"
+    }, 
+    "workMode": {
+        "message": "Work Mode"
+    }, 
+    "close": {
+        "message": "Close"
+    }, 
+    "Reason": {
+        "message": "Reason"
+    }, 
+    "enterReason": {
+        "message": "Please enter the reason."
+    },
+    "Cancel": {
+        "message": "Cancel"
+    }, 
+    "OK": {
+        "message": "OK"
+    },
+    "enterTargetNum": {
+        "message": "Please enter the target number"
+    },
+    "selectApp": {
+        "message": "Please select the application"
+    },
+    "selectConsultType": {
+        "message": "Please select the consult type"
+    },
+    "selectAgentGroup": {
+        "message": "Please select the agent group"
+    },
+    "enterConsultObj": {
+        "message": "Please enter the consult object"
+    },
+    "Agent": {
+        "message": "Agent"
+    },
+    "Number": {
+        "message": "Number"
+    },
+    "DontCallPause": {
+        "message": "The current state is Paused, unable to call!"
+    },
+    "DontCallAcw": {
+        "message": "The current state is ACW, unable to call!"
+    }, 
+    "Campaign": {
+        "message": "Campaign"
+    },
+    "VirtualCustomer": {
+        "message": "Virtual Customer"
+    },
+    "CustomerService": {
+        "message": "Customer Service"
+    },
+    "consultWhenCall": {
+        "message": "When Calling, can consult."
+    },
+    "cbWhenConsulting": {
+        "message": "When Consulting, can callback."
+    },
+    "transferWhenConsultAnswer": {
+        "message": "When consult answered, can transfer."
+    },
+    "conferenceWhenConsultAnswer": {
+        "message": "When consult answered, can conference."
+    },
+    "dontActionWhenCurState": {
+        "message": "The current state, unable to action!"
+    },
+    "DefaultGroup": {
+        "message": "Set default group"
+    },
+    "ringACW": {
+        "message": "ring"
+    },
+    "answerACW": {
+        "message": "answer"
+    }, 
+    "closedACW": {
+        "message": "closed"
+    }, 
+    "All": {
+        "message": "all"
+    }, 
+    "onlyDialIn": {
+        "message": "dialin"
+    }, 
+    "onlyDialOut": {
+        "message": "dialout"
+    },
+    "Logoff": {
+        "message": "Logoff"
+    },
+    "Idle": {
+        "message": "Idle"
+    },
+    "consultRing": {
+        "message": "Consult Ringing"
+    }, 
+    "consultAnswered": {
+        "message": "Consult Answered"
+    }, 
+    "Calling": {
+        "message": "Calling"
+    }, 
+    "Ringing": {
+        "message": "Ringing"
+    },
+    "newInCall": {
+        "message": "You have a new call"
+    },
+    "newCallNotification": {
+        "message": "Customer Number：$calleridnum$\nDateTime：$eventTime$",
+        "placeholders": {
+          "calleridnum": {
+            "content": "$1"
+          },
+          "eventTime": {
+            "content": "$2"
+          }          
+        }        
+    }     
+}

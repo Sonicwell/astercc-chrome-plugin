@@ -1,0 +1,191 @@
+{
+    "pluginName": {
+        "message": "asterCC呼叫中心系统CTI谷歌浏览器插件"
+    },
+    "pluginDescription": {
+        "message": "asterCC呼叫中心系统CTI谷歌浏览器插件",
+        "description": "asterCC呼叫中心系统CTI谷歌浏览器插件"
+    },
+    "AgentGroup": {
+        "message": "坐席组"
+    },
+    "Login": {
+        "message": "签入"
+    },
+    "Logout": {
+        "message": "签出"
+    },    
+    "Pause": {
+        "message": "暂停"
+    },
+    "UnPause": {
+        "message": "取消暂停"
+    },    
+    "ACW": {
+        "message": "话后"
+    },
+    "Dial": {
+        "message": "拨号"
+    },    
+    "Hold": {
+        "message": "保持"
+    },
+    "Resume": {
+        "message": "继续"
+    },    
+    "Consult": {
+        "message": "咨询"
+    },    
+    "CB": {
+        "message": "接回"
+    },    
+    "Conference": {
+        "message": "会议"
+    },
+    "Transfer": {
+        "message": "转接"
+    },
+    "SignOut": {
+        "message": "登出"
+    },    
+    "Username": {
+        "message": "用户名"
+    },
+    "Password": {
+        "message": "密码"
+    },
+    "ServerURL": {
+        "message": "服务器地址"
+    },     
+    "SignIn": {
+        "message": "登录"
+    },
+    "GroupName": {
+        "message": "座席组名称"
+    }, 
+    "acwMode": {
+        "message": "话后模式"
+    }, 
+    "workMode": {
+        "message": "工作模式"
+    }, 
+    "close": {
+        "message": "关闭"
+    }, 
+    "Reason": {
+        "message": "原因"
+    }, 
+    "enterReason": {
+        "message": "请输入原因"
+    },
+    "Cancel": {
+        "message": "取消"
+    }, 
+    "OK": {
+        "message": "确定"
+    },
+    "enterTargetNum": {
+        "message": "请输入目标号码"
+    },
+    "selectApp": {
+        "message": "请选择应用对象"
+    },
+    "selectConsultType": {
+        "message": "请选择咨询类型"
+    },
+    "selectAgentGroup": {
+        "message": "请选择坐席组"
+    },
+    "enterConsultObj": {
+        "message": "请输入咨询目标"
+    },
+    "Agent": {
+        "message": "坐席"
+    },
+    "Number": {
+        "message": "号码"
+    },
+    "DontCallPause": {
+        "message": "当前处于暂停状态，无法外呼!"
+    },
+    "DontCallAcw": {
+        "message": "当前处于话后状态，无法外呼!"
+    },
+    "Campaign": {
+        "message": "外呼营销中心"
+    },
+    "VirtualCustomer": {
+        "message": "虚拟呼叫中心"
+    },
+    "CustomerService": {
+        "message": "呼入客服"
+    },
+    "consultWhenCall": {
+        "message": "坐席处于通话中时，方可进行咨询操作。"
+    },
+    "cbWhenConsulting": {
+        "message": "坐席处于咨询时，方可进行接回操作。"
+    },
+    "transferWhenConsultAnswer": {
+        "message": "咨询方应答时，方可进行转接操作。"
+    },
+    "conferenceWhenConsultAnswer": {
+        "message": "咨询方应答时，方可进行会议操作。"
+    },
+    "dontActionWhenCurState": {
+        "message": "当前所处状态，无法进行此操作。"
+    },
+    "DefaultGroup": {
+        "message": "设置为默认组"
+    },
+    "ringACW": {
+        "message": "振铃话后"
+    },
+    "answerACW": {
+        "message": "应答话后"
+    }, 
+    "closedACW": {
+        "message": "关闭话后"
+    }, 
+    "All": {
+        "message": "全部"
+    }, 
+    "onlyDialIn": {
+        "message": "仅呼入"
+    }, 
+    "onlyDialOut": {
+        "message": "仅呼出"
+    },
+    "Logoff": {
+        "message": "未签入"
+    },
+    "Idle": {
+        "message": "空闲"
+    },
+    "consultRing": {
+        "message": "咨询振铃"
+    }, 
+    "consultAnswered": {
+        "message": "咨询应答"
+    }, 
+    "Calling": {
+        "message": "通话中"
+    }, 
+    "Ringing": {
+        "message": "振铃"
+    },
+    "newInCall": {
+        "message": "您有新的通话"
+    },
+    "newCallNotification": {
+        "message": "客户号码：$calleridnum$\n发生时间：$eventTime$",
+        "placeholders": {
+          "calleridnum": {
+            "content": "$1"
+          },
+          "eventTime": {
+            "content": "$2"
+          }          
+        }        
+    }    
+}
