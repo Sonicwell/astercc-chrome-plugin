@@ -1,0 +1,322 @@
+<html>
+<head>
+    <title data-i18n="pluginDescription">CC Plugin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="myTabs">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li id="agenteTab" role="presentation"><a href="#agente" aria-controls="agente" role="tab" data-toggle="tab">Agente</a></li>
+            <li id="campanaTab" role="presentation"><a href="#campana" aria-controls="campana" role="tab" data-toggle="tab">Campana</a></li>
+            <li id="confTab" role="presentation"><a href="#conf" aria-controls="conf" role="tab" data-toggle="tab">Conf</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="agente">
+                <div>
+                    <div id="statusText" data-i18n="Logoff">Logoff</div>
+                    <div class="input-wrap">
+                        <input type="text" class="form-control" placeholder="Pop address, Exp: http://cn.astercc.com?source=chromePlugin&activenum=##activenum##" id="popAddress">
+                        <!--<input type="text" class="form-control" placeholder="Nombre de Grupo">
+                        <input type="text" class="form-control" placeholder="Estado del Agente">
+                        <input type="text" class="form-control" placeholder="Detalles de Llamada">-->
+                    </div>
+                    <div class="grid9-wrap">
+                        <div class="cell">
+                            <a href="javascript:void(0)" id="groupBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="AgentGroup">Agent Group</div>
+                            </a>
+                        </div>
+                        <div class="cell">
+                            <a href="javascript:void(0)" id="loginBtn" name="login">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Login">Login</div>
+                            </a>
+                        </div>                      
+                        <div class="cell r">
+                            <a href="javascript:void(0)" id="pauseBtn" name="pause">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Pause">Pause</div>
+                            </a>
+                        </div>
+                        <div class="cell">
+                            <a href="javascript:void(0);" id="acwBtn" disabled="disabled">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="ACW">ACW</div>
+                            </a>
+                        </div>
+
+                        <div class="cell">
+                            <a href="javascript:void(0)" id="dialBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Dial">Dial</div>
+                            </a>
+                        </div>
+                        <div class="cell r">
+                            <a href="javascript:void(0)" id="holdBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Hold">Hold</div>
+                            </a>
+                        </div>
+                        <div class="cell">
+                            <a href="javascript:void(0)" id="consultBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Consult">Consult</div>
+                            </a>
+                        </div>
+
+                        <div class="cell">
+                            <a href="javascript:void(0)" id="cbBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="CB">CB</div>
+                            </a>
+                        </div>
+                        <div class="cell r">
+                            <a href="javascript:void(0)" id="confBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Conference">Conf.</div>
+                            </a>
+                        </div>
+                        <div class="cell">
+                            <a href="javascript:void(0)" id="transBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Transfer">Trans.</div>
+                            </a>
+                        </div>
+
+                        <div class="cell">
+                            <a href="javascript:void(0);" id="signOutBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="SignOut">Sign Out</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div role="tabpanel" class="tab-pane" id="campana">
+                <div class="campana-content">
+                    <select class="form-control">
+					  <option>1</option>
+					  <option>2</option>
+					  <option>3</option>
+					  <option>4</option>
+					  <option>5</option>
+					</select>
+                    <select class="form-control">
+					  <option>1</option>
+					  <option>2</option>
+					  <option>3</option>
+					  <option>4</option>
+					  <option>5</option>
+					</select>
+                    <button type="button" class="btn btn-success fullwid">Guardar</button>
+                </div>
+            </div>-->
+            
+            <div role="tabpanel" class="tab-pane" id="conf">
+                <form id="signInForm" method="POST" action="/login/login/">
+                    <div class="input-wrap">
+                       
+                        <input type="text" class="form-control" name="username" placeholder="Username" data-i18n="Username">
+                        <input type="text" class="form-control" name="password" placeholder="Password" data-i18n="Password">
+                        <input type="text" class="form-control" name="serverUrl" placeholder="Server URL" data-i18n="ServerURL">
+                        
+                        <!--
+                        <input type="text" class="form-control" name="popScreenUrl" placeholder="Pop Screen URL">
+                        <input type="text" class="form-control" name="groupId" placeholder="Group ID">
+                        -->
+                        <!--<div class="checkbox">
+                            <label>
+                            <input type="checkbox" id="rememberMeCb" checked> Remember Me
+                            </label>
+                        </div>-->
+                        <button type="button" class="btn btn-success btn-signIn fullwid" data-i18n="SignIn">Sign In</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<!-- login modal -->
+	<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                    <h4 class="modal-title" id="pauseModalLabel">Login</h4>
+                </div> -->
+                <div class="modal-body">
+                    <table class="table table-bordered login-table">
+                    	<thead>
+                    		<tr>
+	                    		<th data-i18n="GroupName">Group Name</th>
+	                    		<th data-i18n="Login">Login</th>
+	                    		<th data-i18n="acwMode">ACW Mode</th>
+	                    		<th data-i18n="workMode">Work Mode</th>
+                    		</tr>
+                    		
+                    		<!--<tr>
+	                    		<th>
+                    				<input name="acwMode" type="radio" />
+                    				<input name="acwMode" type="radio" />
+                    				<input name="acwMode" type="radio" />
+	                    		</th>
+	                    		<th>
+                    				<input name="workMode" type="radio" />
+                    				<input name="workMode" type="radio" />
+                    				<input name="workMode" type="radio" />
+	                    		</th>
+                    		</tr>-->
+                    	</thead>
+                    	<tbody></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-default btn-cancel" data-dismiss="modal" data-i18n="close">Close</button>
+                    <!--<button type="button" class="btn btn-xs btn-primary btn-ok">Ok</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--Pause Modal -->
+    <div class="modal fade" id="pauseModal" tabindex="-1" role="dialog" aria-labelledby="pauseModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label" data-i18n="Reason">Reason</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="reasonSelect">
+                                    <option value="training(培训)">training(培训)</option>
+                                    <option value="meeting(会议)">meeting(会议)</option>
+                                    <option value="leave(请假)">leave(请假)</option>
+                                    <option value="lunch(午休)">lunch(午休)</option>
+                                    <option value="rest(小休)">rest(小休)</option>
+                                    <option value="other(其它)">other(其它)</option>
+                                </select>
+                            </div>
+                            <div class="extraReasonBox" style="display:none;">
+                                <div class="col-sm-10">
+                                    <textarea id="textareaReson" class="form-control" placeholder="Please enter the reason." data-i18n="enterReason"></textarea>
+                                </div>
+                            </div>              
+                            
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-default btn-cancel" data-dismiss="modal" data-i18n="Cancel">Cancel</button>
+                    <button type="button" class="btn btn-xs btn-primary btn-ok" data-i18n="OK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+	<!--Dial Modal -->
+    <div class="modal fade" id="dialModal" tabindex="-1" role="dialog" aria-labelledby="dialModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="enterTargetNum">Please enter the target number</label>
+                            <div class="col-sm-10">
+                                <select name="targetGroup" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<div class="col-sm-12">
+                               	<input class="form-control" name="targetNumber" type="number" />
+                        	</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="selectApp">Please select the application</label>
+                            <div class="col-sm-10">
+                                <select name="applyObj" class="form-control" size="7"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-default btn-cancel" data-dismiss="modal" data-i18n="Cancel">Cancel</button>
+                    <button type="button" class="btn btn-xs btn-primary btn-ok" data-i18n="OK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- consult modal -->
+    <div class="modal fade" id="consultModal" tabindex="-1" role="dialog" aria-labelledby="consultModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                    	<div class="row">
+                    		<div class="col-sm-6">
+                                <label class="col-sm-2 control-label" data-i18n="selectConsultType">Please select the consult type</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" name="consultType" value="internal" /><label data-i18n="Agent">Agent</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="consultType" value="external" checked /><label data-i18n="Number">Number</label>
+                                </div>
+                    		</div>
+                            <p>
+                            <div class="col-sm-6" id="consultGroupDiv" style="display:none;">
+                                <label class="col-sm-2 control-label" data-i18n="selectAgentGroup">Please select the agent group</label>
+                                <div class="col-sm-10">
+                                    <select id="consultGroup" class="form-control">
+
+                                    </select>
+                                </div>
+                            </div>
+                    		<!--<div class="col-sm-6">
+                    			<button type="button" class="btn btn-sm btn-success">呼叫</button>
+                    			<button type="button" class="btn btn-sm btn-success">取消</button>
+                    			<button type="button" class="btn btn-sm btn-success">刷新</button>
+                    		</div>-->
+                    	</div>
+                    	<p>
+                    	<div class="row">
+                            <div class="col-sm-6">
+                                <label class="col-sm-2 control-label" data-i18n="enterConsultObj">Please enter the consult object</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="consultTarget" value="5003" placeholder="enterConsultObj" data-i18n="Please enter the consult object">
+                                </div>
+                    		</div>
+                    		<!--<div class="col-sm-6">
+                    			<textarea class="form-control" name="targetGroup"></textarea>
+                    		</div>
+                    		<div class="col-sm-6">
+                    			<textarea class="form-control" name="targetNumber"></textarea>
+                    		</div>-->
+                    	</div>
+                    
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-default btn-cancel" data-dismiss="modal" data-i18n="Cancel">Cancel</button>
+                    <button type="button" class="btn btn-xs btn-primary btn-ok" data-i18n="OK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/constants.js" type="text/javascript"></script>
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/libs/jquery.form/jquery.form.min.js" type="text/javascript"></script>
+    <script src="js/libs/md5js/md5.min.js" type="text/javascript"></script>
+    <script src="js/astcc_CJI.js" type="text/javascript"></script>
+    <script src="js/script.js" type=    "text/javascript"></script>
+</body>
+</html>
