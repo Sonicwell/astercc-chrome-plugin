@@ -86,16 +86,19 @@ var CC = (function() {
 
            
             if( username == '' ){
+                var translate = chrome.i18n.getMessage('enterUsername');
                 alert('Please key in Username');
                 return ;
             }
 
             if( password == '' ){
+                var translate = chrome.i18n.getMessage('enterPassword');
                 alert('Please key in Password');
                 return ;
             }
             
             if( serverUrl == '' ){
+                var translate = chrome.i18n.getMessage('enterServerurl');
                 alert('Please key in Server url');
                 return ;
             }
@@ -484,7 +487,7 @@ var CC = (function() {
     //获取登陆者信息
     var signIn = function (loadAgentPull) {
         getMyInfo(baseParam.username, baseParam.md5password, baseParam.pwdType, function (myInfoResult){
-            if( myInfoResult != null && myInfoResult.code == 1 ){
+            if (myInfoResult != null && myInfoResult.code == 1) {
                 myInfo = myInfoResult;
                 baseParam.agentno = myInfoResult.agentno;
                 baseParam.agentpassword = myInfoResult.agentpassword;
@@ -492,6 +495,9 @@ var CC = (function() {
                 
                 localStorage.setItem('baseParam', JSON.stringify(baseParam));
                 signInSuccess(loadAgentPull);
+            } else {
+                var translate = chrome.i18n.getMessage('SignInFailed');
+                alert(translate);
             }
         });
     };

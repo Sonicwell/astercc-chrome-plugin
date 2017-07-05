@@ -2,9 +2,12 @@
     "pluginName": {
         "message": "asterCC CTI Plugin"
     },
+    "pluginShortName": {
+        "message": "asterCC"
+    },    
     "pluginDescription": {
         "message": "asterCC call center CTI plugin.",
-        "description": "Plugin description."
+        "description": "asterCC call center CTI plugin."
     },
     "AgentGroup": {
         "message": "Agent Group"
@@ -187,5 +190,20 @@
             "content": "$2"
           }          
         }        
-    }     
+    },
+    "PopAddressExp": {
+        "message": "Pop address, Exp: http://cn.astercc.com?source=chromePlugin&activenum=##activenum##"
+    },
+    "SignInFailed": {
+        "message": "SignIn Failed"
+    },
+    "enterUsername": {
+        "message": "Please key in Username"
+    },
+    "enterPassword": {
+        "message": "Please key in Password"
+    },
+    "enterServerurl": {
+        "message": "Please key in Server url"
+    }            
 }
