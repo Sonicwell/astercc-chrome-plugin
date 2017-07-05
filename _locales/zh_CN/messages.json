@@ -2,6 +2,9 @@
     "pluginName": {
         "message": "asterCC呼叫中心系统CTI谷歌浏览器插件"
     },
+    "pluginShortName": {
+        "message": "asterCC"
+    },    
     "pluginDescription": {
         "message": "asterCC呼叫中心系统CTI谷歌浏览器插件",
         "description": "asterCC呼叫中心系统CTI谷歌浏览器插件"
@@ -187,5 +190,20 @@
             "content": "$2"
           }          
         }        
-    }    
+    },
+    "PopAddressExp": {
+        "message": "设置弹屏地址, 如: http://cn.astercc.com?source=chromePlugin&activenum=##activenum##"
+    },
+    "SignInFailed": {
+        "message": "登录失败"
+    },
+    "enterUsername": {
+        "message": "请输入用户名"
+    },
+    "enterPassword": {
+        "message": "请输入密码"
+    },
+    "enterServerurl": {
+        "message": "请输入服务地址"
+    }           
 }
