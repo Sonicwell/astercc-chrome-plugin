@@ -20,7 +20,7 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane" id="agente">
                 <div>
-                    <div id="statusText" data-i18n="Logoff">Logoff</div>
+                    <div><span id="statusText" data-i18n="Logoff">Logoff</span>&nbsp;( <span id="statusTextTimer">00:00:00</span> )</div>
                     <div class="input-wrap">
                         <input type="text" class="form-control" placeholder="Pop address, Exp: http://cn.astercc.com?source=chromePlugin&activenum=##activenum##" id="popAddress" data-i18n="PopAddressExp">
                         <!--<input type="text" class="form-control" placeholder="Nombre de Grupo">
@@ -46,13 +46,13 @@
                                 <div data-i18n="Pause">Pause</div>
                             </a>
                         </div>
+                        
                         <div class="cell">
                             <a href="javascript:void(0);" id="acwBtn" disabled="disabled">
                                 <img class="icon" src="icon.png" />
                                 <div data-i18n="ACW">ACW</div>
                             </a>
                         </div>
-
                         <div class="cell">
                             <a href="javascript:void(0)" id="dialBtn">
                                 <img class="icon" src="icon.png" />
@@ -65,13 +65,13 @@
                                 <div data-i18n="Hold">Hold</div>
                             </a>
                         </div>
+                        
                         <div class="cell">
                             <a href="javascript:void(0)" id="consultBtn">
                                 <img class="icon" src="icon.png" />
                                 <div data-i18n="Consult">Consult</div>
                             </a>
                         </div>
-
                         <div class="cell">
                             <a href="javascript:void(0)" id="cbBtn">
                                 <img class="icon" src="icon.png" />
@@ -84,14 +84,20 @@
                                 <div data-i18n="Conference">Conf.</div>
                             </a>
                         </div>
+                        
                         <div class="cell">
                             <a href="javascript:void(0)" id="transBtn">
                                 <img class="icon" src="icon.png" />
                                 <div data-i18n="Transfer">Trans.</div>
                             </a>
                         </div>
-
                         <div class="cell">
+                            <a href="javascript:void(0)" id="hangupBtn">
+                                <img class="icon" src="icon.png" />
+                                <div data-i18n="Hangup">Hangup</div>
+                            </a>
+                        </div>
+                        <div class="cell r">
                             <a href="javascript:void(0);" id="signOutBtn">
                                 <img class="icon" src="icon.png" />
                                 <div data-i18n="SignOut">Sign Out</div>
@@ -124,7 +130,7 @@
             <div role="tabpanel" class="tab-pane" id="conf">
                 <form id="signInForm" method="POST" action="/login/login/">
                     <div class="input-wrap">
-                       
+                        <input type="text" class="form-control" name="orgidentity" placeholder="Org Identity" data-i18n="OrgIdentity">
                         <input type="text" class="form-control" name="username" placeholder="Username" data-i18n="Username">
                         <input type="text" class="form-control" name="password" placeholder="Password" data-i18n="Password">
                         <input type="text" class="form-control" name="serverUrl" placeholder="Server URL" data-i18n="ServerURL">

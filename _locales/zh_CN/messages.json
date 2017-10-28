@@ -194,8 +194,14 @@
     "PopAddressExp": {
         "message": "设置弹屏地址, 如: http://cn.astercc.com?source=chromePlugin&activenum=##activenum##"
     },
+    "OrgIdentity": {
+        "message": "团队标识"
+    },
+    "Hangup": {
+        "message": "挂机"
+    },     
     "SignInFailed": {
-        "message": "登录失败"
+        "message": "登录失败，请重试!"
     },
     "enterUsername": {
         "message": "请输入用户名"
