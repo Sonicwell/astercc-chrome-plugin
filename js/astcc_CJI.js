@@ -426,7 +426,7 @@ function callReturnCJI(pwdtype,password,usertype,user,orgidentity,callbackFuc){
 						callbackFuc(resultJson);
 					}
 				}catch(e){
-					//alert('queuePauseCJI error!');
+					//alert('callReturnCJI error!');
 				}
 			}
     	}
@@ -462,36 +462,50 @@ function conferenceCJI(pwdtype,password,usertype,user,orgidentity,callbackFuc){
 						callbackFuc(resultJson);
 					}
 				}catch(e){
-					//alert('queuePauseCJI error!');
+					//alert('conferenceCJI error!');
 				}
 			}
     	}
 	);
-
-
 }
 
 //挂断接口
-function hangupCJI(uniqueid,targetagent,target,pwdtype,password,usertype,user,orgidentity,callbackFuc){
+function hangupCJI(uniqueid, targetagent, target, pwdtype, password, usertype, user, orgidentity, callbackFuc){
     astercc_cip = (typeof(astercc_is_ssl) != 'undefined' && astercc_is_ssl?"https":"http")+"://"+astercc_ip;
-    $.getJSON(astercc_cip+"/setevent/hangupCJI?callback=?",{
-		uniqueid:uniqueid,
-		targetagent:targetagent,
-		target:target,
-		pwdtype:pwdtype,
-		password:password,
-		usertype:usertype,
-		user:user,
-		orgidentity:orgidentity
-	},function(json) {
-		try{
-			if(typeof(callbackFuc) != 'undefined' && callbackFuc != ''){
-				callbackFuc(json);
+    var url = astercc_cip + '/asterccinterfaces';
+    
+    $.post(url, 
+		{
+			'EVENT':'HANGUP',
+			'pwdtype':pwdtype,
+			'password':password,
+			'usertype':usertype,
+			'user':user,
+			'orgidentity':orgidentity,
+			'target': target,
+			'uniqueid': uniqueid,
+			'targetagent': targetagent 
+		}, 
+		function (result) {
+			var resultSplitAry = result.split('|Retuen|');
+
+			if ( resultSplitAry.length == 3 ) {
+				var code = resultSplitAry[1];
+				var message = resultSplitAry[2];
+				var resultJson = {
+					code: code,
+					message:message
+				};
+				try {
+					if (typeof(callbackFuc) != 'undefined' && callbackFuc != '') {
+						callbackFuc(resultJson);
+					}
+				} catch(e) {
+					//alert('hangupCJI error!');
+				}
 			}
-		}catch(e){
-			//alert('hangupCJI error!');
-		}
-    });
+    	}
+	);
 }
 
 
@@ -1049,26 +1063,28 @@ function yealinkAnswerCJI(orgidentity, type, target, phoneuser, phonepwd, callba
 }
 
 
-function getMyInfo(user,password,pwdtype,callbackFuc){
+function getMyInfo(orgidentity, user, password, pwdtype, callbackFuc){
 	astercc_cip = (typeof(astercc_is_ssl) != 'undefined' && astercc_is_ssl?"https":"http")+"://"+astercc_ip;
     
 	var url = astercc_cip + '/asterccinterfaces';
-	$.get(url,{
+	$.get(url, {
 		'EVENT':'MyInfo',
+		'orgidentity': orgidentity,
 		'user': user,
 		'password': password,
 		'pwdtype': pwdtype
-
-	},function(result) {
+	}, function(result) {
 		var resultJson = $.parseJSON(result);
-		
-		try{
+		try {
 			if(resultJson != null &&  callbackFuc != ''){
 				callbackFuc(resultJson);
 			}
-		}catch(e){
-			//alert('loginCJI error!');
+		} catch(e) {
+			//alert('getMyInfo error!');
+			callbackFuc(null);
 		}
+    }).error(function() { 
+        callbackFuc(null); 
     });
 }
 

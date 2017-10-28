@@ -13,6 +13,7 @@ var myInfo = null;
 var groupToModel = {};
 var curstatus = '未签入';
 
+
 var CC = (function() {
     var bgModule = null;
 
@@ -56,10 +57,12 @@ var CC = (function() {
             } else {
                 $('#confTab > a').tab('show');
 
+                var lastOrgidentity = localStorage.getItem('orgidentity');
                 var lastUsername = localStorage.getItem('username');
                 var lastPassword = localStorage.getItem('password');
                 var lastServerUrl = localStorage.getItem('serverUrl');
                 if (lastUsername) {
+                    $('#signInForm').find('input[name="orgidentity"]').val(lastOrgidentity);
                     $('#signInForm').find('input[name="username"]').val(lastUsername);
                     $('#signInForm').find('input[name="password"]').val(lastPassword);
                     $('#signInForm').find('input[name="serverUrl"]').val(lastServerUrl);
@@ -80,6 +83,7 @@ var CC = (function() {
         //登陆按钮
         $('#signInForm .btn-signIn').on('click', function() {
             var $signInForm = $('#signInForm');
+            var orgidentity = $signInForm.find('input[name="orgidentity"]').val();
             var username = $signInForm.find('input[name="username"]').val();
             var password = $signInForm.find('input[name="password"]').val();
             var serverUrl = $signInForm.find('input[name="serverUrl"]').val();
@@ -103,11 +107,13 @@ var CC = (function() {
                 return ;
             }
 
+            baseParam.orgidentity = orgidentity;
             baseParam.username = username;
             baseParam.password = password;
             baseParam.md5password = md5(password);
             baseParam.serverUrl = serverUrl;
 
+            localStorage.setItem('orgidentity', orgidentity);
             localStorage.setItem('username', username);
             localStorage.setItem('password', password);
             localStorage.setItem('serverUrl', serverUrl);
@@ -415,9 +421,18 @@ var CC = (function() {
             });
         });
 
+        //挂机
+        $(document).on('click', '#hangupBtn', function() {
+            hangupCJI('', baseParam.agentno, 'all', baseParam.pwdType, baseParam.agentpassword, 'agent', baseParam.agentno, baseParam.orgidentity, function(result) {
+                console.log('挂机', result);
+            });
+
+            return false;
+        });
+        
         //接回
         $(document).on('click', '#cbBtn', function() {
-            if (curstatus != '咨询振铃' || curstatus != '咨询应答') {
+            if (curstatus != '咨询振铃' && curstatus != '咨询应答') {
                 var translate = chrome.i18n.getMessage('cbWhenConsulting');
                 alert(translate);
                 return false;
@@ -486,18 +501,31 @@ var CC = (function() {
  
     //获取登陆者信息
     var signIn = function (loadAgentPull) {
-        getMyInfo(baseParam.username, baseParam.md5password, baseParam.pwdType, function (myInfoResult){
+        getMyInfo(baseParam.orgidentity, baseParam.username, baseParam.md5password, baseParam.pwdType, function (myInfoResult){
             if (myInfoResult != null && myInfoResult.code == 1) {
                 myInfo = myInfoResult;
                 baseParam.agentno = myInfoResult.agentno;
                 baseParam.agentpassword = myInfoResult.agentpassword;
                 baseParam.orgidentity = myInfoResult.orgidentity;
+                localStorage.setItem('orgidentity', baseParam.orgidentity);
                 
                 localStorage.setItem('baseParam', JSON.stringify(baseParam));
                 signInSuccess(loadAgentPull);
             } else {
                 var translate = chrome.i18n.getMessage('SignInFailed');
                 alert(translate);
+                
+                $('#confTab > a').tab('show');
+                var lastOrgidentity = localStorage.getItem('orgidentity');
+                var lastUsername = localStorage.getItem('username');
+                var lastPassword = localStorage.getItem('password');
+                var lastServerUrl = localStorage.getItem('serverUrl');
+                if (lastUsername) {
+                    $('#signInForm').find('input[name="orgidentity"]').val(lastOrgidentity);
+                    $('#signInForm').find('input[name="username"]').val(lastUsername);
+                    $('#signInForm').find('input[name="password"]').val(lastPassword);
+                    $('#signInForm').find('input[name="serverUrl"]').val(lastServerUrl);
+                }                
             }
         });
     };
@@ -529,11 +557,13 @@ var CC = (function() {
         }
     
         $('#myTabs a:eq(2)').tab('show');
-
+        
+        var lastOrgidentity = localStorage.getItem('orgidentity');
         var lastUsername = localStorage.getItem('username');
         var lastPassword = localStorage.getItem('password');
         var lastServerUrl = localStorage.getItem('serverUrl');
         if (lastUsername) {
+            $('#signInForm').find('input[name="orgidentity"]').val(lastOrgidentity);
             $('#signInForm').find('input[name="username"]').val(lastUsername);
             $('#signInForm').find('input[name="password"]').val(lastPassword);
             $('#signInForm').find('input[name="serverUrl"]').val(lastServerUrl);
@@ -569,9 +599,21 @@ var CC = (function() {
                 '<input class="workmodel-radio" name="workMode3" type="radio" title="'+translate7+'" value="dialout">'+
             '</td>'+
         '</tr>');
-
+        
+        var lastUpdated = '';
         $.each(myInfo.agent_group, function (i, agentGroup) {
-            console.log(agentGroup);
+            console.log(i, agentGroup);
+            
+            if (typeof(agentGroup.lastUpdated) != 'undefined') {
+                var agCurTime = new Date(agentGroup.lastUpdated);
+                if (i == 0) {
+                    lastUpdated = agCurTime;
+                } else {
+                    if (agCurTime.getTime() > lastUpdated.getTime()) {
+                        lastUpdated = agCurTime;
+                    }
+                }
+            }
             
             //按钮初始化
             groupToModel[agentGroup.agent_group_id] = {
@@ -662,7 +704,7 @@ var CC = (function() {
 
             $('#groupModal .login-table > tbody').append($tr);
         });
-        
+
         var j=0, len=myInfo.cdrs.length;
         for (j; j<len; j++) {
             if (myInfo.cdrs[j].CurpbxcdrSub.curstatus == 'ONHOLD') {
@@ -676,6 +718,7 @@ var CC = (function() {
                     curstatus = '咨询振铃';
                 } else {
                     //TODO:咨询应答 or 会议-通话中？
+                    curstatus = '咨询应答';
                 }
             }
         }
@@ -691,8 +734,50 @@ var CC = (function() {
             "咨询应答": "consultAnswered"
         };
         var translatex = chrome.i18n.getMessage(curstatusTranslate[curstatus]);
-        $('#statusText').html(translatex);
-    };    
+        
+        if (lastUpdated != '') {
+            var tmpCurdate = new Date();
+            lastUpdated = (tmpCurdate.getTime() - lastUpdated.getTime()) / 1000;
+
+            var leave1 = lastUpdated%3600;
+            var hh = Math.floor(lastUpdated/3600);
+            var mm = Math.floor(leave1/60);
+            var ss = Math.floor(leave1%60);
+
+            hh = hh < 10 ? '0' + hh : hh;
+            mm = mm < 10 ? '0' + mm : mm;
+            ss = ss < 10 ? '0' + ss : ss;
+            lastUpdated = hh + ':' + mm + ':' + ss;
+        } else {
+            lastUpdated = '00:00:00';
+        }                
+        updateStatusText(translatex, lastUpdated);
+
+	    setInterval(function(){
+            var cst = $('#statusTextTimer').html();
+            var cstAry = cst.split(':');
+            var s = parseInt(cstAry[2]);
+            var m = parseInt(cstAry[1]);
+            var h = parseInt(cstAry[0]);
+            s += 1;
+            if (s == 60) {
+                s = 0;
+                m += 1;
+            }
+
+            if (m == 60) {
+                m = 0;
+                h += 1;
+            }
+
+            if (s < 10) s = '0' + s;
+            if (m < 10) m = '0' + m;
+            if (h < 10) h = '0' + h;
+
+            $('#statusTextTimer').html(h + ':' + m + ':' + s);
+	    }, 1000);
+	    
+    };   
     
     return {
         "init": init
@@ -702,6 +787,18 @@ var CC = (function() {
 $(function() {
     CC.init();
 });
+
+
+//当前状态增加持续时长显示
+function updateStatusText (str, lastUpdated) {
+    $('#statusText').html(str);
+    if (typeof(lastUpdated) != 'undefined') {
+        $('#statusTextTimer').html(lastUpdated);
+    } else {
+        $('#statusTextTimer').html('00:00:00');
+    }
+}
+
 
 //队列签入/签出
 function queueAction(agent_group_id) {
@@ -780,14 +877,14 @@ chrome.runtime.onMessage.addListener(function(json, sender, sendResponse){
         $('#pauseBtn').attr('name', 'pause').find('div').html(translate);
         
         translate = chrome.i18n.getMessage('Idle');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
     } else if (json.event == 'paused') {
         //暂停
         var translate = chrome.i18n.getMessage('UnPause');
         $('#pauseBtn').attr('name', 'unpause').find('div').html(translate);
         
         translate = chrome.i18n.getMessage('Pause');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
     } else if (json.event == 'login') {
         //签入
         $('#queue'+json.AgentGroupId).removeAttr('checked');
@@ -800,7 +897,7 @@ chrome.runtime.onMessage.addListener(function(json, sender, sendResponse){
         $('#loginBtn').attr('name', 'logout').find('div').html(translate);
         
         translate = chrome.i18n.getMessage('Idle');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
     } else if (json.event == 'logoff') {
         //签出
         //$('#agid'+json.AgentGroupId+'Q').find('> td:eq(1) > input:checkbox').removeAttr('checked');
@@ -815,7 +912,7 @@ chrome.runtime.onMessage.addListener(function(json, sender, sendResponse){
         
         if (logoff == 'yes') {
             var translate = chrome.i18n.getMessage('Logoff');
-            $('#statusText').html(translate);
+            updateStatusText(translate);
 
             translate = chrome.i18n.getMessage('Login');
             $('#loginBtn').attr('name', 'login').find('div').html(translate);
@@ -856,21 +953,21 @@ chrome.runtime.onMessage.addListener(function(json, sender, sendResponse){
             curstatus = '咨询振铃';
             
             var translate = chrome.i18n.getMessage('consultRing');
-            $('#statusText').html(translate);
+            updateStatusText(translate);
         } else if (json.event == 'answer') {
             curstatus = '咨询应答';
             
             var translate = chrome.i18n.getMessage('consultAnswered');
-            $('#statusText').html(translate);
+            updateStatusText(translate);
         } else if (json.event == 'join' || json.event == 'hangup') {
             curstatus = '通话中';
             
             var translate = chrome.i18n.getMessage('Calling');
-            $('#statusText').html(translate);
+            updateStatusText(translate);
         }
     } else if (json.source == 'AGENT' && json.event == 'ringing') {
         var translate = chrome.i18n.getMessage('Ringing');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
         
         //弹屏
         var popUrl = $('#popAddress').val();
@@ -898,13 +995,13 @@ chrome.runtime.onMessage.addListener(function(json, sender, sendResponse){
         curstatus = '通话中';
         
         var translate = chrome.i18n.getMessage('Calling');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
     } else if (json.event == 'onhold') {
         //保持
         curstatus = '保持';
         
         var translate = chrome.i18n.getMessage('Hold');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
         
         translate = chrome.i18n.getMessage('Resume');
         $('#holdBtn').find('div').html(translate);
@@ -913,27 +1010,27 @@ chrome.runtime.onMessage.addListener(function(json, sender, sendResponse){
         curstatus = '通话中';
         
         var translate = chrome.i18n.getMessage('Calling');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
         
         translate = chrome.i18n.getMessage('Hold');
         $('#holdBtn').find('div').html(translate);
     } else if (json.event == 'acwstop') {
         //结束话后
         var translate = chrome.i18n.getMessage('Idle');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
         
         $('#acwBtn').attr('disabled', 'disabled');
     } else if (json.event == 'hangupacw') {
         curstatus = '话后';
         //进入话后模式
         var translate = chrome.i18n.getMessage('ACW');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
         $('#acwBtn').removeAttr('disabled');
     } else if (json.source == 'AGENT' && json.event == 'hangup') {
         curstatus = '空闲';
         
         var translate = chrome.i18n.getMessage('Idle');
-        $('#statusText').html(translate);
+        updateStatusText(translate);
     }
     
     sendResponse('OK');
